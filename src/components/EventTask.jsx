@@ -2,7 +2,7 @@
 
 
 
-const EventTask = ({Text}) => {
+const EventTask = ({onHandleDelete, text}) => {
     return(
         <div className="events_wrapper_tasks_group_componet">
             <div className="events_wrapper_tasks_group_componet_dot">
@@ -11,13 +11,10 @@ const EventTask = ({Text}) => {
                 </div>
             </div>
             <div className="events_wrapper_tasks_group_componet_text">
-                {Text}
+                {text}
             </div>
-            <div className="events_wrapper_tasks_group_componet_icons">
-                <button className="events_wrapper_tasks_group_componet_icons_button icon-green">
-                    <i className="fa-solid fa-pencil "></i>
-                </button>
-                <button className="events_wrapper_tasks_group_componet_icons_button">
+            <div className="events_wrapper_tasks_group_componet_icons">  
+                <button onClick={(e) => onHandleDelete(e, text)} className="events_wrapper_tasks_group_componet_icons_button">
                     <i className="fa-regular fa-trash-can"></i>
                 </button>
             </div>

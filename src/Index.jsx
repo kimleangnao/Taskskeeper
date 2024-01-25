@@ -29,7 +29,7 @@ const App = () => {
                     <Navbar />
                     <Routes>
                         <Route path="/assigntasks" element={<AssignTasks />} />
-                        <Route path="/events" element={<Events />} />
+                        <Route path="/tasks" element={<Events />} />
                         <Route path="/" element={<Home />} />
                     </Routes>
                 </QueryClientProvider>

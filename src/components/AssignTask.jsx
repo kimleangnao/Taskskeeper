@@ -2,20 +2,20 @@
 
 
 
-const AssignTask = ({text}) => {
+const AssignTask = ({groupId, text, handleDeleteTask}) => {
+    //console.log(text)
+
+
     return(
         <div className="assigntask">
                 <div className="assigntask_icon">
 
                 </div>
                 <div className="assigntask_text">
-                    {text}
+                    {text.title}
                 </div>
                 <div className="assigntask_button">
-                    <button className="assigntask_button_icon icon-green">
-                        <i className="fa-solid fa-pencil "></i>
-                    </button>
-                    <button className="assigntask_button_icon">
+                    <button onClick={(e) => handleDeleteTask(e, groupId, text.id)} className="assigntask_button_icon">
                         <i className="fa-regular fa-trash-can"></i>
                     </button>
                 </div>

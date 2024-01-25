@@ -3,25 +3,63 @@
 import { useState } from "react";
 import logo from "../resources/logo.png";
 import EventTask from "./components/EventTask";
+import EventsInput from "./components/EventsInput";
 
 const Events = () => {
-    const [tasks] = useState([
-        "Workout / Running Laps",
-        "Shower / Breakfast",
+    //this need to be change, information that return from the API will have to be sanitize to only title only
+    const [tasks, setTasks] = useState([
+        "Workout / Running Laps",     
         "Think of your goal today",
         "Start your tasks",
-        "Take a break in between tasks",
         "Get some lunch to refill",
-        "Loose yourself after some refill",
         "Start your tasks again",
-        "Get some more break in",
-        "Back to tasks",
         "Review what you've done today",
         "Get some dinner, pat yourself in the back for what you've done",
         "End your day with something you wanted to do but didn't"
     ]);
-    
 
+    const [newTask, setnewTask] = useState({title: "", description: ""});
+    
+    const handleOnChangeInputTitle = (e) => {
+        e.preventDefault();
+        //console.log(e.target.value)
+        let currentTask = {...newTask};
+        currentTask.title = e.target.value;
+        setnewTask(currentTask);
+    }
+
+    const handleOnChangeDescription = (e) => {
+        e.preventDefault();
+        //console.log(e.target.value)
+        let currentTask = {...newTask};
+        currentTask.description = e.target.value;
+        setnewTask(currentTask);
+    }
+
+    //this need to be change, to send info to the back end and also keep change in the front end when API give "OKAY" back
+    const onSubmit = (e) => {
+        e.preventDefault();
+       
+        let currentTasks = [...tasks];
+        let currentNewTask = {...newTask};
+
+        currentTasks.push(currentNewTask.title);
+
+        //reset
+        currentNewTask.title = "";
+        currentNewTask.description = "";
+
+        setTasks(currentTasks);
+        setnewTask(currentNewTask);
+    }
+
+    //this need to be change, to handle ID and remove object using ID instead of text title
+    const onHandleDelete = (e, value) => {
+        e.preventDefault();
+        let currentTask = [...tasks];
+        let filteredArray = currentTask.filter((v) => v != value);
+        setTasks(filteredArray);
+    }
 
     return(
         <div className="events">
@@ -36,32 +74,18 @@ const Events = () => {
                     </div>
                     <div className="events_wrapper_tasks_group">
                         {
-                            tasks.map((v, i) =>  <EventTask key={i} Text={v} />)
+                            tasks.map((v, i) =>  <EventTask onHandleDelete={onHandleDelete} key={i} text={v} />)
                         }
                     </div>
                 </div>
-
-                <div className="events_wrapper_new">
-                    <div className="events_wrapper_new_header">
-                        New Task
-                    </div>
-                    <div className="events_wrapper_new_text">
-                        Title
-                    </div>
-                    <input type="text" className="events_wrapper_new_input" placeholder="Give it an interesting title" />
-                    
-                    <div className="events_wrapper_new_text">
-                        Description
-                    </div>
-                    <textarea className="events_wrapper_new_textarea" placeholder="Give it an interesting title" >
-                    
-                    </textarea>
-                    <button className="events_wrapper_new_button">
-                        CREATE
-                    </button>
-
                 
-                </div>
+                <EventsInput 
+                    inputValue={newTask.title} 
+                    textareaValue={newTask.description} 
+                    onSubmit={onSubmit} 
+                    onChangeInputTitle={handleOnChangeInputTitle} 
+                    onChangeTextarea={handleOnChangeDescription} 
+                />
             </div>
 
         </div>

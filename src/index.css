@@ -364,7 +364,7 @@
     height: 100%;
     display: flex;
     flex-flow:row nowrap;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
 }
 .events_wrapper_tasks_group_componet_icons_button{
@@ -592,7 +592,7 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-end;
 }
 .assigntask_button_icon{
     width: 35px;
